@@ -1,3 +1,3 @@
-# Secuencias-promotoras-en-E.Coli
+# Promoter-sequences-E.Coli
 
-Análisis desarrolado en R mediante algoritmo KNN de las secuencias promotoras de E. Coli como parte del curso de machine learning del Máster de Bioinformática y Bioestadística de la Universidad de Barcelona y Universidad Oberta de Cataluña. 
+A comprehensive analysis was conducted utilizing the R programming language, employing the K-Nearest Neighbors (KNN) algorithm, on the promoter sequences of Escherichia coli (E. Coli). This investigation constituted an integral component of the esteemed machine learning course offered within the Master's program in Bioinformatics and Biostatistics, jointly conducted by the University of Barcelona and the Open University of Catalonia.
