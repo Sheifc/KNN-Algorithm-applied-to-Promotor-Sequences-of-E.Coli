@@ -1,5 +1,5 @@
 ---
-title: 'Secuencias promotoras en E. Coli'
+title: 'KNN-Algoritm applied to Promoter sequences of E. Coli'
 author: "Sheila Fernández Cisneros"
 date: '`r format(Sys.Date(),"%e de %B, %Y")`'
 output:
@@ -20,7 +20,7 @@ csl: apa.csl
 knitr::opts_chunk$set(echo = TRUE)
 ```
 ```{r libraries, include=FALSE}
-# Cargamos las librerías 
+# Libraries 
 
 library(knitr)
 library(stringr)
@@ -41,63 +41,90 @@ file <- "promoters.txt"
 file1 <- "promoters_onehot.txt"
 ```
 
-## 1. Escribir en el informe una sección con el título “Algoritmo k-NN” en el que se haga una breve explicación de su funcionamiento y sus características. Además, se presente una tabla de sus fortaleza y debilidades.
+## 1. Write a section in the report titled 'k-NN Algorithm,' providing a brief explanation of its operation and characteristics. Additionally, include a table outlining its strengths and weaknesses.
 
-# Algoritmo k-NN 
+# k-NN Algorithm
 
-## Breve explicación de su funcionamiento y sus características
+## Brief explanation of its operation and characteristics:
 
-De forma general decimos que un algoritmo es un conjunto de reglas o instrucciones definidas y no ambiguas, ordenadas y finitas con un fin concreto como solucionar un problema, realizar un cálculo, procesar datos, realizar una tarea, etc. 
+In general, an algorithm can be defined as a set of well-defined, unambiguous, ordered, and finite rules or instructions designed to solve a specific problem, perform calculations, process data, or complete a task.
 
-Para poder ejecutar un algoritmo se necesita de disponibilidad de datos y en muchos casos, una gran cantidad de éstos, por otra parte según el tipo de algoritmo se necesita de una mayor potencia de cálculo o no. De forma que existe una relación entre estos tres elementos: disponibilidad de datos, potencia de datos y algoritmo.
+To execute an algorithm, data availability is required, often in large quantities. Additionally, the computational power needed may vary depending on the algorithm. Therefore, there is a relationship between these three elements: data availability, computational power, and the algorithm itself.
 
-Para cada algoritmo se presentará una estructura como ésta: breve presentación del algoritmo, detalles e hiperparámetros y puntos fuertes y débiles.
+For each algorithm, the following structure will be presented: a brief introduction to the algorithm, details and hyperparameters, and its strengths and weaknesses.
 
-El algoritmo k-NN se desarrolló por primera vez sobre 1950 como un método no paramétrico en estadística. Se puede usar para problemas tanto de clasificación como de regresión.
+The k-NN algorithm was initially developed in the 1950s as a non-parametric method in statistics. It can be used for both classification and regression problems.
 
-La predicción se basa en las *k* muestras de entrenamiento más próximas a la muestra a predecir. 
+The prediction is based on the k nearest training samples to the sample being predicted.
 
--En el caso de clasificación, el resultado sería, la clase más frecuente entre sus *k* vecinos más próximos. 
+-In classification problems, the result is the most frequent class among its k nearest neighbors. 
 
--Si es un problema de regresión, la predicción es un valor promedio de los valores de sus *k* vecinos más próximos. 
+-In regression problems, the prediction is the average value of the k nearest neighbors. 
 
-Según el número de vecinos usado, el resultado de la predicción puede ser diferente, por tanto el único hiperparámetro que presenta este algoritmo es el número de vecinos más próximo que se representa por la letra *k*. El cual se debe ajustar en el proceso de entrenamiento y suele ser un valor impar para evitar empates en las decisiones de predicción. 
+The choice of k, representing the number of nearest neighbors, can influence the prediction outcome. It is the only hyperparameter of this algorithm, which needs to be adjusted during the training process. Typically, an odd value is chosen for k to avoid ties in prediction decisions. 
 
-Otro factor importante es la distancia usada para medir la proximidad, dependerá de las características de las variables predictoras. Existen muchos tipos de distancias, la más usual es la distancia euclidiana, otro ejemplo sería la distancia ciudad o Manhattan que va a ser un valor absoluto.
+Another important factor is the distance metric used to measure proximity, which depends on the characteristics of the predictor variables. There are various types of distances, with the most commonly used being Euclidean distance. Another example is the Manhattan or City block distance, which is an absolute value.
 
-## Fortalezas y debilidades del algoritmo K-NN:
+### Delving into a more detailed decision.
 
-| Fortalezas | Debilidades |
+1. Euclidean distance in KNN algorithm
+
+In the K-nearest neighbors (KNN) algorithm, Euclidean distance is a commonly used metric to measure the similarity or dissimilarity between two data points in a feature space. It is named after the Greek mathematician Euclid and is based on the straight-line distance between two points in a Cartesian coordinate system.
+
+The Euclidean distance between two points is calculated using the Pythagorean theorem. It represents the length of the shortest path connecting the two points, which is a straight line. Mathematically, the Euclidean distance between two points (p1, p2) in a d-dimensional feature space can be expressed as:
+
+euclidean_distance = sqrt((p1[1] - p2[1])^2 + (p1[2] - p2[2])^2 + ... + (p1[d] - p2[d])^2)
+
+Where p1[i] and p2[i] represent the values of the ith feature for the two points.
+
+In the context of the KNN algorithm, the Euclidean distance is used to measure the proximity between the query point and the training points. The KNN algorithm finds the k nearest neighbors to the query point based on the Euclidean distance and makes predictions based on the class or average value of the target variable of those nearest neighbors.
+
+The Euclidean distance is commonly used in KNN because it considers the magnitude and direction of the differences between feature values, and it works well for continuous numerical features. However, it may not be the most suitable choice when dealing with data that has categorical or ordinal features, as it assumes that all features contribute equally to the overall distance. In such cases, other distance metrics, such as the city block distance, may be more appropriate.
+
+2. In the K-nearest neighbors (KNN) algorithm, the city block distance, also known as the Manhattan distance, is a metric used to measure the similarity or dissimilarity between two data points in a feature space. It is named after the distance one would need to travel in a city block grid to reach from one point to another, moving only vertically and horizontally.
+
+The city block distance between two points is calculated by summing the absolute differences of their corresponding feature values. It is defined as the sum of the absolute differences between the coordinates of the two points along each dimension. Mathematically, the city block distance between two points (p1, p2) in a d-dimensional feature space can be expressed as:
+
+city_block_distance = |p1[1] - p2[1]| + |p1[2] - p2[2]| + ... + |p1[d] - p2[d]|
+
+Where p1[i] and p2[i] represent the values of the ith feature for the two points.
+
+In the context of the KNN algorithm, the city block distance is used to measure the proximity between the query point and the training points. The KNN algorithm finds the k nearest neighbors to the query point based on the city block distance and makes predictions based on the class or average value of the target variable of those nearest neighbors.
+
+Using the city block distance in the KNN algorithm allows for the consideration of the differences between feature values along each dimension and can be particularly useful when dealing with data that has categorical or ordinal features.
+
+## Strengths and weaknesses of the K-NN algorithm:
+
+| Strengths | Weaknesses |
 | -- | -- |
-| Simple | No produce un modelo |
-| Eficaz | Gran consumidor de memoria |
-| No asume ninguna distribución de los datos | Requiere preproceso de imputación para tratar valores missing |
+| Simple | Does not produce a model |
+| Effective | High memory consumption |
+| Does not assume any data distribution | Requires preprocessing for handling missing values |
 
-No produce un modelo ya que para cada predicción debe de calcular todas las distancias del punto a predecir con todos los datos de entrenamiento. Si hay valores perdidos o missing hay que realizar un preproceso de imputación. 
+The K-NN algorithm does not produce a model because it calculates distances between the point to be predicted and all the training data for each prediction. If there are missing values in the data, preprocessing with imputation is required.
 
-## 2. Desarrollar una función en R (o Python) que implemente una codificación “one-hot” (one-hot encoding) de las secuencias. Presentar un ejemplo simple de su uso.
+## 2. Develop a function in R (or Python) that implements "one-hot" encoding of sequences. Present a simple example of its usage.
 
+Simple example of using one-hot:
 
-Ejemplo simple del uso de one-hot: 
+The nitrogenous bases that form nucleotides are 4: a, g, c, and t.
 
-Las bases nitrogenadas que forman los nucleótidos son 4: a, g, c y t. 
-
-Creamos un vector con ellas que llamaremos baseN:
+We create a vector with them, which we will call baseN:
 
 ```{r}
 baseN <- c("a","g","c","t")
 ```
 
-### Creamos la función one-hot:
+### We create the one-hot function:
 
 ```{r}
 one.hot<-function(secuencia, bases){
-y<-unlist(strsplit(secuencia,"")) # separamos las bases nitrogenadas que compone la secuencia
+y<-unlist(strsplit(secuencia,"")) # We separate the nitrogenous bases that make up the sequence.
 sapply(y,function(x){match(bases,x,nomatch=0)}) # The sapply() function in the R Language takes a list, vector, or data frame as input and gives output in the form of an array or matrix object.
 }
 ```
 
-### Realizamos un ejemplo:
+### Here's an example:
 
 ```{r}
 sec_ejemplo <- "tactag"
@@ -105,23 +132,24 @@ ej <- t(one.hot(sec_ejemplo, bases = baseN))
 ej
 ```
 
-Como podemos observar, hemos codificado con 0 y 1 nuestra secuencia ejemplo basándonos en el vector creado inicialmente *baseN*, indicado con números 1, 2, 3 y 4, los componentes de baseN y con ceros la no presencia de dichos componentes en nuestra secuencia ejemplo y con 1 la presencia de dicho componente en nuestra secuencia ejemplo. 
+As we can see, we have encoded our example sequence using 0s and 1s based on the initially created vector *baseN*, indicated with numbers 1, 2, 3, and 4, representing the components of baseN. We use zeros to indicate the absence of those components in our example sequence and ones to indicate the presence of each component in our example sequence. 
 
 vector <- t(matriz)
 dim(vector) <-prod(dim(vector))
 vector
+
 ```{r}
-# lo pasamos a vector:
+# We convert it into a vector:
 vector <- t(ej)
 dim(vector) <- prod(dim(vector))
 vector
 ```
 
-## 3. Desarrollar un script en R (o Python) que implemente un clasificador knn. El script ha de realizar los siguientes apartados:
+## 3. Develop a script in R (or Python) that implements a KNN classifier. The script should perform the following sections:
 
-## (a) Leer los datos del fichero promoters.txt e indicar el número de observaciones por clase.
+## (a) Read the data from the file promoters.txt and indicate the number of observations per class.
 
-Para leer los datos del fichero, primero vamos a mostrar el archivo en el cual tenemos las secuencias. 
+To read the data from the file, let's first display the file in which we have the sequences.
 
 ```{r, echo=FALSE}
 data <- read.table(file, sep=",", stringsAsFactors = FALSE, header = FALSE) 
@@ -129,33 +157,33 @@ head(data)
 str(data)
 ```
 
-Observamos que tenemos `r nrow(data)` observaciones de `r ncol(data)` variables, las tres son de tipo character. 
+We observe that we have `r nrow(data)` observations with `r ncol(data)` variables, all three of which are of character type.
 
-Los atributos del fichero de datos son:
-1. Un símbolo de {+/-}, indicando la clase (“+” = promotor).
-2. El nombre de la secuencia promotora. Las instancias que corresponden a no promotores se denominan por la posición genómica.
-3. Las restantes posiciones corresponden a la secuencia.
+The attributes of the data file are:
+1. A symbol {+/-}, indicating the class ("+" = promoter).
+2. The name of the promoter sequence. Instances corresponding to non-promoters are labeled by genomic position.
+3. The remaining positions correspond to the sequence.
 
-Por tanto, lo primero que debemos hacer es convertir a factor con dos niveles la primera columna para posteriormente usar los datos en los correspondientes análisis. 
+Therefore, the first step we need to take is to convert the first column into a factor with two levels. This will allow us to use the data for further analysis.
 
 ```{r}
 data$V1 <- factor(data$V1, levels = c("+", "-"))
 str(data)
 ```
 
-Para conocer la cantidad de secuencias de cada clase "+","-" :
+To determine the number of sequences for each class "+","-": 
 
 ```{r}
 data.frame(table(data[,1]))
 ```
 
-Podemos comprobar que tenemos `r nrow(data[data$V1 == "+", ])` secuencias promotoras y `r nrow(data[data$V1 == "-", ])` secuencias no promotoras. 
+We can check that we have `r nrow(data[data$V1 == "+", ])` promoter sequences and `r nrow(data[data$V1 == "-", ])` non-promoter sequences.
 
-## (b) Transformar las secuencias de nucleótidos en vectores numéricos usando la función de transformación desarrollada anteriormente. En caso que no se haya implementado la función de codificación one-hot, se puede acceder a los datos ya transformados cargando el fichero promoters_onehot.txt.
+## (b) Transforming nucleotide sequences into numerical vectors using the transformation function developed earlier. If the one-hot encoding function has not been implemented, the transformed data can be accessed by loading the promoters_onehot.txt file.
 
-### Transformación de los datos one.hot: 
+### Transformation of one-hot encoded data:
 
-La columna 3 del dataset es la que corresponde con las secuencias, por tanto, aplicamos la codificación one.hot a la columna 3 del dataset: 
+The third column of the dataset corresponds to the sequences. Therefore, we apply the one-hot encoding to the third column of the dataset.
 
 ```{r}
 data_onehot <- apply(as.data.frame(data[,3]), 1, one.hot, baseN)
@@ -165,18 +193,18 @@ data_onehot <- as.data.frame(data_onehot)
 #str(data_onehot)
 ```
 
-Observamos que tenemos `r nrow(data_onehot)` observaciones de `r ncol(data_onehot)` variables.
+We observe that we have `r nrow(data_onehot)` observations with `r ncol(data_onehot)` variables.
 
-### Transformación del dataset:
+### Dataset Transformation:
 
-Podemos empezar eliminando la columna 3 y 2 de nuestros datos para quedarnos con la columna que nos interesa que es la de promotor/no promotor (+/-). 
+We can start by removing the third and second columns from our data to keep only the column that is of interest to us, which is the promoter/non-promoter column (+/-).
 
 ```{r}
 data_V1 <- select(data, -V3, -V2)
-str(data_V1) # comprobamos que V1 ya se ha transformado a factor
+str(data_V1) # We verify that V1 has already been transformed into a factor.
 ```
 
-Aplicamos un label a los niveles del factor:
+We apply a label to the levels of the factor:
 
 ```{r}
 data_V1$V1 <- factor(data_V1$V1, labels = c("plus","minus"))
@@ -184,46 +212,47 @@ head(data_V1)
 str(data_V1)
 ```
 
-Unimos los datasets que contienen la primera columna y la tercera tras la codificación onehot con cbind():
+We combine the datasets that contain the first column and the third column after one-hot encoding using cbind():
 
 ```{r}
 dataframe <- cbind (data_V1, data_onehot)
 #head(dataframe)
 ```
 
-Le asignamos nombre a la primera columna:
+We assign a name to the first column:
 
 ```{r}
 names(dataframe)[1] = "class"
 #head(dataframe)
 ```
 
-## (c) Utilizando la semilla aleatoria 123, separar los datos en dos partes, una parte para training (67%) y una parte para test (33%).
+## (c) Using the random seed 123, split the data into two parts, one for training (67%) and one for testing (33%).
 
-Procedemos a plantar la semilla indicada y separar los datos como es requerido: 
+We proceed to set the specified seed and split the data as required.
 
 ```{r}
-set.seed(123) #fijamos la semilla
-train <- sample(1:nrow(dataframe),round(2*nrow(dataframe)/3,0)) #con la función sample 
-training <- dataframe[train,] # creamos la parte training de los datos
-test <- dataframe[-train,] # creamos la parte test de los datos
-# Creamos el train y test set solamente de la columna "label":
+set.seed(123) # We set the seed
+train <- sample(1:nrow(dataframe),round(2*nrow(dataframe)/3,0)) # use the sample function
+training <- dataframe[train,] # create the training data
+test <- dataframe[-train,] # create the test data
+
+# We create the train and test sets only for the "label" column:
 train_label <- data[train,1] 
 test_label <- data[-train,1]
 ```
 
-Mostramos cuantos promotores hay en training y test:
+We show how many promoters there are in the training and test sets:
 
 ```{r}
 table(training$class)
 table(test$class)
 ```
 
-Otro modo de hacerlo podría ser: 
+Another way to do it could be:
 
 ```{r}
 set.seed(123)
-split <- sort(sample(nrow(dataframe), nrow(dataframe)*0.67)) # Cogemos el 67% del dataset
+split <- sort(sample(nrow(dataframe), nrow(dataframe)*0.67)) # We select the 67% of the dataset
 
 train1 <- dataframe[split, -1]
 test1 <- dataframe[-split, -1]
@@ -232,59 +261,59 @@ train1_label <- dataframe[split, 1]
 test1_label <- dataframe[-split, 1]
 ```
 
-## (d) Aplicar el knn (k = 1, 5, 11, 21, 51, 71) basado en el training para predecir que secuencias del test son secuencias promotoras o no. Además, realizar una curva ROC para cada k y mostrar el valor de AUC.
+## (d) Apply k-NN (k = 1, 5, 11, 21, 51, 71) based on the training set to predict whether the sequences in the test set are promoter or non-promoter sequences. Additionally, create an ROC curve for each k and display the AUC value.
 
 ### KNN() (k = 1, 5, 11, 21, 51, 71):
 
 ```{r}
-test <- test[-1] # eliminamos la columna class
-training <- training[-1] # eliminamos la columna class
+test <- test[-1] # we remove the class column
+training <- training[-1] # we remove the class column 
 ```
 
 
 ```{r}
-set.seed(123) # fijamos una semilla
+set.seed(123) # we set the seed
 pred1 <-knn(train = training, test = test, cl = train_label, k = 1, prob = TRUE)
 pred1
 CrossTable(x = test_label, y = pred1, prop.chisq = FALSE )
 ```
 
 ```{r}
-set.seed(123) # fijamos una semilla
+set.seed(123) # we set the seed
 pred5 <-knn(train = training, test = test, cl = train_label, k = 5, prob = TRUE)
 pred5
 CrossTable(x = test_label, y = pred5, prop.chisq = FALSE )
 ```
 
 ```{r}
-set.seed(123) # fijamos una semilla
+set.seed(123) # we set the seed
 pred11 <-knn(train = training, test = test, cl = train_label, k = 11, prob = TRUE)
 pred11
 CrossTable(x = test_label, y = pred11, prop.chisq = FALSE )
 ```
 
 ```{r}
-set.seed(123) # fijamos una semilla
+set.seed(123) # we set the seed
 pred21 <-knn(train = training, test = test, cl = train_label, k = 21, prob = TRUE)
 pred21
 CrossTable(x = test_label, y = pred21, prop.chisq = FALSE )
 ```
 
 ```{r}
-set.seed(123) # fijamos una semilla
+set.seed(123) # we set the seed
 pred51 <-knn(train = training, test = test, cl = train_label, k = 51, prob = TRUE)
 pred51
 CrossTable(x = test_label, y = pred51, prop.chisq = FALSE )
 ```
 
 ```{r}
-set.seed(123) # fijamos una semilla
+set.seed(123) # we set the seed
 pred71 <-knn(train = training, test = test, cl = train_label, k = 71, prob = TRUE)
 pred71
 CrossTable(x = test_label, y = pred71, prop.chisq = FALSE )
 ```
 
-### Curva ROC para cada k y mostrar el valor de AUC:
+### ROC Curve for each k and display the AUC value:
 
 ```{r}
 k <- c(1,5,11,21,51, 71)
@@ -305,49 +334,47 @@ for (i in k){
 }
 ```
 
-## (e) Comentar los resultados de la clasificación en función de la curva ROC, valor de AUC y del número de falsos positivos, falsos negativos y error de clasificación obtenidos para los diferentes valores de k. La clase asignada como positiva son las que representan secuencias promotoras.
+(e) Commenting on the classification results based on the ROC curve, AUC value, and the number of false positives, false negatives, and classification error obtained for different values of k. The positive class assigned represents promoter sequences.
+ROC Curves:
+The points comprising the ROC curves indicate the true positive rate at different thresholds of false positives. To create the curves, the predictions of a classifier are sorted according to the estimated probability from the model for the positive class, with the highest values first.
 
-### Curvas ROC:
+AUC Value:
+The closer the classifier's curve is to the perfect classifier, the better it is at identifying positive values. This can be measured using a statistic known as the Area Under the ROC Curve (AUC). The AUC treats the ROC diagram as a two-dimensional square and measures the total area under the ROC curve. AUC ranges from 0.5 (for a classifier with no predictive value) to 1.0 (for a perfect classifier). A convention for interpreting AUC scores uses a system similar to academic grades with letters:
 
-Los puntos que comprenden las curvas ROC indican la tasa de verdaderos positivos en diferentes umbrales de falsos positivos. Para crear las curvas, las predicciones de un clasificador se ordenan según la probabilidad estimada del modelo de la clase positiva, con los valores más grandes primero.
 
-### Valor de AUC: 
+• A: Excellent = 0.9 to 1.0
 
-Cuanto más cerca esté la curva del clasificador perfecto, mejor será para identificar valores positivos. Esto se puede medir utilizando una estadística conocida como el área bajo la curva ROC (AUC abreviado). El AUC trata el diagrama ROC como un cuadrado bidimensional y mide el área total bajo la curva ROC. AUC varía de 0,5 (para un clasificador sin valor predictivo) a 1,0 (para un clasificador perfecto). Una convención para interpretar las puntuaciones AUC utiliza un sistema similar a las calificaciones académicas con letras:
+• B: Very Good = 0.8 to 0.9
 
-• A: Sobresaliente = 0,9 a 1,0
+• C: Acceptable/Regular = 0.7 to 0.8
 
-• B: Excelente/bueno = 0,8 a 0,9
+• D: Poor = 0.6 to 0.7
 
-• C: Aceptable/regular = 0,7 a 0,8
+• F: No Discrimination = 0.5 to 0.6
 
-• D: Pobre = 0,6 a 0,7
+As with most scales of this nature, the performance levels may work better for some tasks than others, and the categorization is somewhat subjective.
 
-• E: Sin discriminación = 0,5 a 0,6
+It is also worth noting that two ROC curves can have very different shapes yet have the same AUC. For this reason, AUC alone can be misleading. Best practice is to use AUC in combination with a qualitative examination of the ROC curve.
 
-Como ocurre con la mayoría de las escalas similares a esta, los niveles pueden funcionar mejor para algunas tareas que para otras; la categorización es algo subjetiva.
+Source: [@lantz]
 
-También vale la pena señalar que dos curvas ROC pueden tener una forma muy diferente y, sin embargo, tener un AUC idéntico. Por esta razón, un AUC solo puede ser engañoso. La mejor práctica es usar AUC en combinación con un examen cualitativo de la curva ROC.
+### ROC Curve for k=71:
 
-Fuente: [@lantz]
+The diagonal line from the bottom-left corner to the top-right corner of the diagram represents a classifier with no predictive value. This type of classifier detects true positives and false positives at the same rate, implying that the classifier cannot discriminate between them. This is the baseline against which other classifiers can be judged. ROC curves that fall close to this line indicate models that are not very useful. Additionally, it coincides with the lowest possible AUC value, 0.5.
 
-### Curva ROC para k=71: 
+### ROC Curves for k=51, k=21, k=5, k=11, k=1:
 
-La línea diagonal desde la esquina inferior izquierda hasta la esquina superior derecha del diagrama representa un clasificador sin valor predictivo. Este tipo de clasificador detecta verdaderos positivos y falsos positivos exactamente a la misma velocidad, lo que implica que el clasificador no puede discriminar entre los dos. Esta es la línea de base por la cual se pueden juzgar otros clasificadores. Las curvas ROC que caen cerca de esta línea indican modelos que no son muy útiles. Además coincide con el valor de auc más bajo posible, 0.5.
+In this order, the curves and AUC values are represented from best classifier to worst classifier.
 
-### Curvas ROC para k=51, k=21, k=5, k=11, k=1: 
+### Confusion Matrices:
 
-Justo en este orden están representadas las curvas y valores auc coincidiendo en orden decreciente de mejor clasificador a peor. 
+From the values expressed in the Confusion Matrix, we can obtain a series of useful measures in our analysis.
 
-### Matrices de confusión: 
+Precision = (TP + TN) / (TP + FP + FN + TN)
 
-A partir de los valores expresados en la Matriz de Confusión, es posible contar con una serie de medidas útiles en nuestro análisis. 
+Sensitivity = TP / (TP + FN)
 
-Precisión = (TP + TN) / (TP + FP + FN + TN)
-
-Sensibilidad = TP / (TP + FN)
-
-Especificidad = TN / (TN + FP)
+Specificity = TN / (TN + FP)
 
 ```{r, include=FALSE}
 conf1 <- confusionMatrix(table(test_label, pred1))
@@ -381,28 +408,28 @@ conf51
 conf71
 ```
 
-Para el valor de k=1, obtenemos como Falso positivo, FP=7 y Falso negativo, FN=1. Verdadero postivo, TP=16 y verdadero negativo, TN=11.
+For the value of k=1, we obtain False positive, FP=7 and False negative, FN=1. True positive, TP=16 and True negative, TN=11.
 
-Para el valor de k=5, obtenemos como Falso positivo, FP=6 y Falso negativo, FN=2. Verdadero postivo, TP=15 y verdadero negativo, TN=12.
+For the value of k=5, we obtain False positive, FP=6 and False negative, FN=2. True positive, TP=15 and True negative, TN=12.
 
-Para el valor de k=11, obtenemos como Falso positivo, FP=7 y Falso negativo, FN=1. Verdadero postivo, TP=16 y verdadero negativo, TN=11.
+For the value of k=11, we obtain False positive, FP=7 and False negative, FN=1. True positive, TP=16 and True negative, TN=11.
 
-Para el valor de k=21, obtenemos como Falso positivo, FP=9 y Falso negativo, FN=1. Verdadero postivo, TP=16 y verdadero negativo, TN=9.
+For the value of k=21, we obtain False positive, FP=9 and False negative, FN=1. True positive, TP=16 and True negative, TN=9.
 
-Para el valor de k=51, obtenemos como Falso positivo, FP=12 y Falso negativo, FN=0. Verdadero postivo, TP=17 y verdadero negativo, TN=6.
+For the value of k=51, we obtain False positive, FP=12 and False negative, FN=0. True positive, TP=17 and True negative, TN=6.
 
-Para el valor de k=71, obtenemos como Falso positivo, FP=18 y Falso negativo, FN=0. Verdadero postivo, TP=17 y verdadero negativo, TN=0.
+For the value of k=71, we obtain False positive, FP=18 and False negative, FN=0. True positive, TP=17 and True negative, TN=0.
 
-### Error de clasificación: 
+### Classification error:
 
-Para calcular el error de clasificación: (FP+FN)/(TP+TN+FP+FN)
-A partir de los valores expresados en la Matriz de Confusión, es posible contar con una serie de medidas útiles en nuestro análisis. 
+To calculate the classification error: (FP+FN)/(TP+TN+FP+FN)
+From the values expressed in the Confusion Matrix, we can obtain a series of useful measures in our analysis.
 
 ```{r}
 error_rate <- function(tp,tn,fp,fn){
   return((fp + fn)/(tp+tn+fp+fn))
 }
-# Positivos verdaderos para cada valor de K:
+# True Positive values for each value of k: 
 tp1=16
 tp5=15
 tp11=16
@@ -410,7 +437,7 @@ tp21=16
 tp51=17
 tp71=17
 
-# Negativos verdaderos para cada valor de k: 
+# True Negative values for each value of k: 
 tn1=11
 tn5=12
 tn11=11
@@ -418,7 +445,7 @@ tn21=9
 tn51=6
 tn71=0
 
-# Falsos positivos para cada valor de k:
+# False Positive for each value of k: 
 fp1=7
 fp5=6
 fp11=7
@@ -426,7 +453,7 @@ fp21=9
 fp51=12
 fp71=18
 
-# Falsos negativos para cada valor de k:
+# False negative values for each value of k: 
 fn1=1
 fn5=2
 fn11=1
@@ -449,11 +476,11 @@ print(paste0("error rate para k=51 = ", error51))
 print(paste0("error rate para k=71 = ", error71))
 ```
 
-El mayor error rate es para k=71 como era de esperar, le sigue k=51, después k21 y las demás tienen una tasa de error de clasificación similar. 
+The highest error rate is for k=71 as expected, followed by k=51, then k=21, and the rest have a similar classification error rate.
 
-## 4. Representar las secuencias logo de cada tipo de secuencia (promotor/no promotor). Comentar los resultados obtenidos.
+## 4. Representing sequence logos for each type of sequence (promoter/non-promoter). Comment on the results obtained.
 
-Usaremos la función toupper() para pasar las secuencias a mayúscula. Después separamos las secuencias promotoras de las no promotoras y aplicamos la función ggseqlogo(). 
+We will use the toupper() function to convert the sequences to uppercase. Then we separate the promoter sequences from the non-promoter sequences and apply the ggseqlogo() function.
 
 ```{r}
 datos <- read.table(file, header=FALSE, sep=",")
@@ -480,14 +507,13 @@ ggseqlogo(promotor[,2])
 ggseqlogo(no_promotor[,2])
 ```
 
-Representando las secuencias logo se puede ver el grado de conservación de una secuencia. 
+Representing sequence logos allows us to observe the degree of conservation in a sequence.
 
-ggseqlogo() nos muestra las probabilidades de que aparezcan los nucleótidos en cada posición de la secuencia. Los nucleótidos que aparecen en la parte superior del gráfico y con mayor tamaño són los más probables en cada posición.
+ggseqlogo() shows us the probabilities of nucleotide occurrence at each position in the sequence. The nucleotides that appear at the top of the graph and with larger size are the most probable ones at each position.
 
-La variabilidad de las secuencias viene representada con el tamaño de las letras, de modo que a menor número de nucleótidos diferentes, mayor es la letra, mejor conservación habrá y mayor su frecuencia o probabilidad.
+The variability of the sequences is represented by the size of the letters, so the fewer different nucleotides present, the larger the letter, indicating better conservation and higher frequency or probability.
 
-En el gráfico de las secuencias promotoras se observan claramente 3 posiciones con claramente menos variabilidad respecto a todas las demás, las letras más grandes de estas posiciones son T, T y G lo que significa que son los nucleótidos que predominan en estas posiciones. Las frecuencias son claramente más altas que las del gráfico de secuencias no promotoras, concretamente 10 veces más. 
+In the promoter sequence graph, three positions with significantly less variability can be clearly observed compared to all others. The larger letters in these positions are T, T, and G, indicating that these nucleotides predominate in these positions. The frequencies are significantly higher than those in the non-promoter sequence graph, specifically 10 times higher.
 
-Sin embargo, el gráfico de secuencias no promotoras presenta posiciones con diferente variabilidad, siendo una de ellas la que destaca por encima de las demás, indicando que es la mejor conservada. El nucleótido que predomina en dicha posición es la G. 
-
+However, the non-promoter sequence graph exhibits positions with varying variability, with one position standing out as the best conserved. The predominant nucleotide in this position is G.
 
